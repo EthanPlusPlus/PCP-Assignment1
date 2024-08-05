@@ -4,13 +4,18 @@ package serialAbelianSandpile;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.RecursiveTask;
+
 import javax.imageio.ImageIO;
 
 //This class is for the grid for the Abelian Sandpile cellular automaton
-public class Grid {
+public class Grid extends RecursiveTask<Integer> {
 	private int rows, columns;
 	private int [][] grid; //grid 
 	private int [][] updateGrid;//grid for next time step
+
+	int hi, lo;
+	public static int SEQUENTIAL_CUTOFF=1000;
     
 	public Grid(int w, int h) {
 		rows = w+2; //for the "sink" border
@@ -24,6 +29,10 @@ public class Grid {
 				updateGrid[i][j]=0;
 			}
 		}
+
+		hi = grid.length-2 * grid.length-2;
+		lo = 0;
+
 	}
 
 	public Grid(int[][] newGrid) {
@@ -44,6 +53,11 @@ public class Grid {
 				this.grid[i][j]=copyGrid.get(i,j);
 			}
 		}
+	}
+
+	public Grid(Grid cGrid, int hi, int lo) {
+		this(cGrid);
+
 	}
 	
 	public int getRows() {
@@ -66,7 +80,40 @@ public class Grid {
 				grid[i][j]=value;
 			}
 	}
+
 	
+	static class Coord {
+		public int x, y;
+		public Coord(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		public static Coord IndexToCoord(int index, Grid g) 
+		{
+	
+			int x = index % g.getRows() - 1;
+			int y = index / g.getRows();
+			
+			Coord coord = new Coord(x, y);
+	
+			return coord;
+	
+		}
+		public static int CoordToIndex(Coord c, Grid g)
+		{
+
+			int index = 0;
+			index = c.y * g.getRows();
+			index += c.x + 1;
+
+			return index;
+		}
+
+		public String toString() {
+			return x + " " + y;
+		}
+	}
 
 	//for the next timestep - copy updateGrid into grid
 	public void nextTimeStep() {
@@ -76,6 +123,30 @@ public class Grid {
 			}
 		}
 	}
+
+
+	protected Integer compute()
+	{
+
+		if(hi-lo < SEQUENTIAL_CUTOFF)
+		{
+
+			updateGrid[i][j] = (grid[i][j] % 4) + 
+						(grid[i-1][j] / 4) +
+						grid[i+1][j] / 4 +
+						grid[i][j-1] / 4 + 
+						grid[i][j+1] / 4;
+				if (grid[i][j]!=updateGrid[i][j]) {  
+					change=true;
+				}
+		} 
+
+
+	}
+
+
+
+
 	
 	//key method to calculate the next update grod
 	boolean update() {

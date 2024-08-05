@@ -56,6 +56,10 @@ class AutomatonSimulation{
 	 
     public static void main(String[] args) throws IOException  {
 
+		Grid g = new Grid(new int[3][3]);
+		System.out.println(Grid.Coord.IndexToCoord(8, g));
+
+
     	Grid simulationGrid;  //the cellular automaton grid
     	  	
     	if (args.length!=2) {   //input is the name of the input and output files
