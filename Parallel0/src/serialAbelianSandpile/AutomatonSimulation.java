@@ -10,13 +10,9 @@ import java.io.IOException;
  * Peachy Parallel Assignments (EduPar 2022)" 
  * developed by Bu\:cker, Casanova and Da Silva  (∗Institute for Computer Science, Friedrich Schiller University Jena, Jena, Germany)
  */
-import java.util.concurrent.ForkJoinPool;
 
 class AutomatonSimulation{
-
-	static final ForkJoinPool fjPool = new ForkJoinPool();
-
-	static final boolean DEBUG=true;//for debugging output, off
+	static final boolean DEBUG=false;//for debugging output, off
 	
 	static long startTime = 0;
 	static long endTime = 0;
@@ -58,15 +54,9 @@ class AutomatonSimulation{
 	        return array;
 	    }
 
-	public static void processOnce(Grid grid) 
-	{
-		fjPool.invoke(grid);
 
-
-	}
 	 
     public static void main(String[] args) throws IOException  {
-
 
     	Grid simulationGrid;  //the cellular automaton grid
     	  	
@@ -92,27 +82,16 @@ class AutomatonSimulation{
     	if(DEBUG) {
     		System.out.printf("starting config: %d \n",counter);
     		simulationGrid.printGrid();
-    	}/* 
-		while(simulationGrid.update()) {//run until no change
-	    		if(DEBUG) simulationGrid.printGrid();
-	    		counter++;
-	    	}
-		*/
+    	}
 
-		int[][] s = new int[67][67];
-		for (int i = 0; i < 4994; i++) {
-			System.out.println(Grid.Coord.IndexToCoord(i, s));
-		}
-
-		Grid.change = true;
-		while(Grid.change){
-			Grid.change = false;
-			//System.out.println("hey");
-			//simulationGrid.nextTimeStep();
-			processOnce(simulationGrid);
+		while(simulationGrid.abelian()) {//run until no change
+			simulationGrid.nextTimeStep();
 			if(DEBUG) simulationGrid.printGrid();
 			counter++;
 		}
+		//simulationGrid.nextTimeStep();
+
+
 
    		tock(); //end timer
    		
