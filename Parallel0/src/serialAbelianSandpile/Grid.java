@@ -12,7 +12,7 @@ import java.util.concurrent.ForkJoinPool;
 
 //This class is for the grid for the Abelian Sandpile cellular automaton
 public class Grid {
-	private int js, columns;
+	private int row, columns;
 	private int [][] grid; //grid 
 	public int[][] updateGrid;//grid for next time step
 
@@ -21,12 +21,12 @@ public class Grid {
 	//added (also changed int[][] to Integer[][])
     
 	public Grid(int w, int h) {
-		js = w+2; //for the "sink" border
+		row = w+2; //for the "sink" border
 		columns = h+2; //for the "sink" border
-		grid = new int[this.js][this.columns];
-		updateGrid=new int[this.js][this.columns];
+		grid = new int[this.row][this.columns];
+		updateGrid=new int[this.row][this.columns];
 		/* grid  initialization */
-		for(int i=0; i<this.js; i++ ) {
+		for(int i=0; i<this.row; i++ ) {
 			for( int j=0; j<this.columns; j++ ) {
 				grid[i][j]=0;
 				updateGrid[i][j]=0;
@@ -38,7 +38,7 @@ public class Grid {
 	public Grid(int[][] newGrid) {
 		this(newGrid.length,newGrid[0].length); //call constructor above
 		//don't copy over sink border
-		for(int i=1; i<js-1; i++ ) {
+		for(int i=1; i<row-1; i++ ) {
 			for( int j=1; j<columns-1; j++ ) {
 				this.grid[i][j]=newGrid[i-1][j-1];
 			}
@@ -46,9 +46,9 @@ public class Grid {
 		
 	}
 	public Grid(Grid copyGrid) {
-		this(copyGrid.js,copyGrid.columns); //call constructor above
+		this(copyGrid.row,copyGrid.columns); //call constructor above
 		/* grid  initialization */
-		for(int i=0; i<js; i++ ) {
+		for(int i=0; i<row; i++ ) {
 			for( int j=0; j<columns; j++ ) {
 				this.grid[i][j]=copyGrid.get(i,j);
 			}
@@ -60,8 +60,8 @@ public class Grid {
 
 	}
 	
-	public int getjs() {
-		return js-2; //less the sink
+	public int getrow() {
+		return row-2; //less the sink
 	}
 
 	public int getColumns() {
@@ -75,7 +75,7 @@ public class Grid {
 
 	void setAll(int value) {
 		//borders are always 0
-		for( int i = 1; i<js-1; i++ ) {
+		for( int i = 1; i<row-1; i++ ) {
 			for( int j = 1; j<columns-1; j++ ) 			
 				grid[i][j]=value;
 			}
@@ -83,7 +83,7 @@ public class Grid {
 
 	//for the next timestep - copy updateGrid into grid
 	public void nextTimeStep() {
-		for(int i=1; i<js-1; i++ ) {
+		for(int i=1; i<row-1; i++ ) {
 			for( int j=1; j<columns-1; j++ ) {
 				this.grid[i][j]=updateGrid[i][j];
 			}
@@ -212,7 +212,7 @@ public class Grid {
 	boolean update() {
 		boolean change=false;
 		//do not update border
-		for( int i = 1; i<js-1; i++ ) {
+		for( int i = 1; i<row-1; i++ ) {
 			for( int j = 1; j<columns-1; j++ ) {
 				updateGrid[i][j] = (grid[i][j] % 4) + 
 						(grid[i-1][j] / 4) +
@@ -237,7 +237,7 @@ public class Grid {
 		System.out.printf("+");
 		for( j=1; j<columns-1; j++ ) System.out.printf("  --");
 		System.out.printf("+\n");
-		for( i=1; i<js-1; i++ ) {
+		for( i=1; i<row-1; i++ ) {
 			System.out.printf("|");
 			for( j=1; j<columns-1; j++ ) {
 				if ( grid[i][j] > 0) 
@@ -255,14 +255,14 @@ public class Grid {
 	//write grid out as an image
 	void gridToImage(String fileName) throws IOException {
         BufferedImage dstImage =
-                new BufferedImage(js, columns, BufferedImage.TYPE_INT_ARGB);
+                new BufferedImage(row, columns, BufferedImage.TYPE_INT_ARGB);
         //integer values from 0 to 255.
         int a=0;
         int g=0;//green
         int b=0;//blue
         int r=0;//red
 
-		for( int i=0; i<js; i++ ) {
+		for( int i=0; i<row; i++ ) {
 			for( int j=0; j<columns; j++ ) {
 			     g=0;//green
 			     b=0;//blue
