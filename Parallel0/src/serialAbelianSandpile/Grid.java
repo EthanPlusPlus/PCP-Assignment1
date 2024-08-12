@@ -101,7 +101,7 @@ public class Grid {
 		int[][] grod;
 		int[][] uGrod;
 		int lo, hi;
-		static final int SEQUENTIAL_CUTOFF = 60;
+		static final int SEQUENTIAL_CUTOFF = 2;
 		boolean main;
 
 		public ParallelGrid(int[][] grid){
@@ -253,7 +253,7 @@ public class Grid {
 	}
 	
 	//write grid out as an image
-	void gridToImage(String fileName) thjs IOException {
+	void gridToImage(String fileName) throws IOException {
         BufferedImage dstImage =
                 new BufferedImage(js, columns, BufferedImage.TYPE_INT_ARGB);
         //integer values from 0 to 255.
