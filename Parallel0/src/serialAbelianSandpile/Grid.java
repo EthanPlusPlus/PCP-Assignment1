@@ -90,9 +90,15 @@ public class Grid {
 		}
 	}
 
+	
+	
+	
 	boolean abelian() {
 		return fjPool.invoke( new ParallelGrid( grid ) );
 	}
+
+
+
 
 	
 	public class ParallelGrid extends RecursiveTask<Boolean>  
@@ -101,7 +107,7 @@ public class Grid {
 		int[][] grod;
 		int[][] uGrod;
 		int lo, hi;
-		static final int SEQUENTIAL_CUTOFF = 2;
+		static final int CUTOFF = 2;
 		boolean main;
 
 		public ParallelGrid(int[][] grid){
@@ -120,7 +126,7 @@ public class Grid {
 		protected Boolean compute()
 		{
 			boolean change=false;
-			if(hi-lo < SEQUENTIAL_CUTOFF) {
+			if(hi-lo < CUTOFF) {
 				for(int i=lo; i<hi; i++){
 					for (int j = 1; j < grid.length-1; j++) {
 						updateGrid[j][i] = (grid[j][i] % 4) + 
@@ -153,78 +159,6 @@ public class Grid {
 
 		}
 
-	}
-
-
-	// protected Integer compute()
-	// {
-
-	// 	int count = lo;
-	// 	if(hi-lo < 20){
-			
-	// 		while (count < hi) {
-
-	// 			Coord loC = Grid.Coord.IndexToCoord(count, updateGrid);
-
-	// 			//if(j+1 > grid.length-1) {System.out.println(j);}
-	// 			//System.out.println(get(33,33));
-
-	// 			if(updateGrid[j][i]>3) {System.out.println(j + " "+i+" "+count + "SADSD");}
-	// 			if(updateGrid[j][i]<3) {System.out.println(j + " "+i+" "+count);}
-	// 			//else{System.out.println(updateGrid[j][i]);}
-	// 			updateGrid[j][i] = (grid[j][i] % 4) + 
-	// 					(grid[j-1][i] / 4) +
-	// 					grid[j+1][i] / 4 +
-	// 					grid[j][i-1] / 4 + 
-	// 					grid[j][i+1] / 4;
-	// 			if (grid[j][i]!=updateGrid[j][i]) {  
-	// 				change=true;
-	// 			}
-
-	// 			count++;
- 
-	// 		}
-
-	// 		return 0;
-
-	// 	} 
-	// 	else {
-			
-	// 		Grid left = new Grid(grid, lo, (hi+lo)/2);
-	// 		Grid right = new Grid(grid, (lo + hi)/2, hi);
-
-	// 		left.fork();
-	// 		right.compute();
-	// 		left.join();
-	// 		nextTimeStep();
-	// 		return 0;
-
-	// 	}
-
-
-	// }
-
-
-
-
-	
-	//key method to calculate the next update grod
-	boolean update() {
-		boolean change=false;
-		//do not update border
-		for( int i = 1; i<row-1; i++ ) {
-			for( int j = 1; j<columns-1; j++ ) {
-				updateGrid[i][j] = (grid[i][j] % 4) + 
-						(grid[i-1][j] / 4) +
-						grid[i+1][j] / 4 +
-						grid[i][j-1] / 4 + 
-						grid[i][j+1] / 4;
-				if (grid[i][j]!=updateGrid[i][j]) {  
-					change=true;
-				}
-		}} //end nested for
-	if (change) { nextTimeStep();}
-	return change;
 	}
 	
 	

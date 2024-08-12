@@ -84,12 +84,14 @@ class AutomatonSimulation{
     		simulationGrid.printGrid();
     	}
 
+		
+		
 		while(simulationGrid.abelian()) {//run until no change
 			simulationGrid.nextTimeStep();
 			if(DEBUG) simulationGrid.printGrid();
 			counter++;
 		}
-		//simulationGrid.nextTimeStep();
+
 
 
 
