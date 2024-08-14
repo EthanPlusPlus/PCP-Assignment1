@@ -7,39 +7,39 @@ import java.io.IOException;
 import java.util.concurrent.RecursiveTask;
 
 import javax.imageio.ImageIO;
+import java.util.concurrent.ForkJoinPool;
+
 
 //This class is for the grid for the Abelian Sandpile cellular automaton
-public class Grid extends RecursiveTask<Integer> {
-	private int rows, columns;
+public class Grid {
+	private int row, columns;
 	private int [][] grid; //grid 
-	private int [][] updateGrid;//grid for next time step
+	public int[][] updateGrid;//grid for next time step
 
-	int hi, lo;
-	public static int SEQUENTIAL_CUTOFF=1000;
-	public static boolean change=false;
+	//added
+	static final ForkJoinPool fjPool = ForkJoinPool.commonPool();
+	static int CUTOFF = 0;
+	//added (also changed int[][] to Integer[][])
     
 	public Grid(int w, int h) {
-		rows = w+2; //for the "sink" border
+		row = w+2; //for the "sink" border
 		columns = h+2; //for the "sink" border
-		grid = new int[this.rows][this.columns];
-		updateGrid=new int[this.rows][this.columns];
+		grid = new int[this.row][this.columns];
+		updateGrid=new int[this.row][this.columns];
 		/* grid  initialization */
-		for(int i=0; i<this.rows; i++ ) {
+		for(int i=0; i<this.row; i++ ) {
 			for( int j=0; j<this.columns; j++ ) {
 				grid[i][j]=0;
 				updateGrid[i][j]=0;
 			}
 		}
 
-		hi = (grid.length-2) * (grid.length-2);
-		lo = 0;
-
 	}
 
 	public Grid(int[][] newGrid) {
 		this(newGrid.length,newGrid[0].length); //call constructor above
 		//don't copy over sink border
-		for(int i=1; i<rows-1; i++ ) {
+		for(int i=1; i<row-1; i++ ) {
 			for( int j=1; j<columns-1; j++ ) {
 				this.grid[i][j]=newGrid[i-1][j-1];
 			}
@@ -47,32 +47,22 @@ public class Grid extends RecursiveTask<Integer> {
 		
 	}
 	public Grid(Grid copyGrid) {
-		this(copyGrid.rows,copyGrid.columns); //call constructor above
+		this(copyGrid.row,copyGrid.columns); //call constructor above
 		/* grid  initialization */
-		for(int i=0; i<rows; i++ ) {
+		for(int i=0; i<row; i++ ) {
 			for( int j=0; j<columns; j++ ) {
-				System.out.println(i +" "+j+" "+columns+" "+rows);
 				this.grid[i][j]=copyGrid.get(i,j);
 			}
 		}
 	}
 
-	public Grid(int[][] newGrid, int lo, int hi) {
-		//this(grid.length-2,grid[0].length-2);
-		this(newGrid.length-2,newGrid[0].length-2); //call constructor above
-		//don't copy over sink border
-		for(int i=1; i<rows-1; i++ ) {
-			for( int j=1; j<columns-1; j++ ) {
-				this.grid[i][j]=newGrid[i-1][j-1];
-			}
-		}
-		this.hi = hi;
-		this.lo = lo;
+	public Grid(Grid cGrid, int hi, int lo) {
+		this(cGrid);
 
 	}
 	
-	public int getRows() {
-		return rows-2; //less the sink
+	public int getrow() {
+		return row-2; //less the sink
 	}
 
 	public int getColumns() {
@@ -86,124 +76,89 @@ public class Grid extends RecursiveTask<Integer> {
 
 	void setAll(int value) {
 		//borders are always 0
-		for( int i = 1; i<rows-1; i++ ) {
+		for( int i = 1; i<row-1; i++ ) {
 			for( int j = 1; j<columns-1; j++ ) 			
 				grid[i][j]=value;
 			}
 	}
 
-	
-	static class Coord {
-		public int x, y;
-		public Coord(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-
-		public static Coord IndexToCoord(int index, int[][] g) 
-		{
-	
-			int x = (index % (g.length-2)) + 1;
-			int y = (index / (g.length-2)) + 1;
-			
-			Coord coord = new Coord(x, y);
-	
-			return coord;
-	
-		}
-		public static int CoordToIndex(Coord c, int[][] g)
-		{
-
-			int index = 0;
-			index = (c.y-1) * (g.length-2);
-			index += (c.x-1);
-
-			return index;
-		}
-
-		public String toString() {
-			return x + " " + y;
-		}
-	}
-
 	//for the next timestep - copy updateGrid into grid
 	public void nextTimeStep() {
-		for(int i=1; i<rows-1; i++ ) {
+		for(int i=1; i<row-1; i++ ) {
 			for( int j=1; j<columns-1; j++ ) {
 				this.grid[i][j]=updateGrid[i][j];
 			}
 		}
 	}
 
-
-	protected Integer compute()  // we still need to call nextTimeStep() after doing whole grid
-	{
-		
-		int count = lo;
-		if(hi-lo < 20){
-			
-			while (count < hi) {
-
-				Coord loC = Grid.Coord.IndexToCoord(count, updateGrid);
-
-				//if(loC.x+1 > grid.length-1) {System.out.println(loC.x);}
-				//System.out.println(get(33,33));
-
-				if(updateGrid[loC.x][loC.y]>3) {System.out.println(loC.x + " "+loC.y+" "+count + "SADSD");}
-				//if(updateGrid[loC.x][loC.y]<3) {System.out.println(loC.x + " "+loC.y+" "+count);}
-				//else{System.out.println(updateGrid[loC.x][loC.y]);}
-				updateGrid[loC.x][loC.y] = (grid[loC.x][loC.y] % 4) + 
-						(grid[loC.x-1][loC.y] / 4) +
-						grid[loC.x+1][loC.y] / 4 +
-						grid[loC.x][loC.y-1] / 4 + 
-						grid[loC.x][loC.y+1] / 4;
-				if (grid[loC.x][loC.y]!=updateGrid[loC.x][loC.y]) {  
-					change=true;
-				}
-
-				count++;
-
-			}
-
-			return 0;
-
-		} 
-		else {
-			
-			Grid left = new Grid(grid, lo, (hi+lo)/2);
-			Grid right = new Grid(grid, (lo + hi)/2, hi);
-
-			left.fork();
-			right.compute();
-			left.join();
-			nextTimeStep();
-			return 0;
-
-		}
-
+	
+	
+	
+	boolean abelian() {
+		return fjPool.invoke( new ParallelGrid( grid ) );
 	}
 
 
 
 
 	
-	//key method to calculate the next update grod
-	boolean update() {
-		boolean change=false;
-		//do not update border
-		for( int i = 1; i<rows-1; i++ ) {
-			for( int j = 1; j<columns-1; j++ ) {
-				updateGrid[i][j] = (grid[i][j] % 4) + 
-						(grid[i-1][j] / 4) +
-						grid[i+1][j] / 4 +
-						grid[i][j-1] / 4 + 
-						grid[i][j+1] / 4;
-				if (grid[i][j]!=updateGrid[i][j]) {  
-					change=true;
+	public class ParallelGrid extends RecursiveTask<Boolean>  
+	{
+
+		int[][] grod;
+		int[][] uGrod;
+		int lo, hi;
+		boolean main;
+
+		public ParallelGrid(int[][] grid){
+			this.grod = grid;
+			this.uGrod = grid;
+			this.lo = 1;
+			this.hi = grid.length-1;
+		}
+		public ParallelGrid(int[][] grid, int[][] uGrid, int lo, int hi) {
+			this.grod = grid;
+			this.uGrod = uGrid;
+			this.lo = lo;
+			this.hi = hi;
+		}
+
+		protected Boolean compute()
+		{
+			boolean change=false;
+			if(hi-lo <= CUTOFF) {
+				for(int i=lo; i<hi; i++){
+					for (int j = 1; j < grid.length-1; j++) {
+						updateGrid[j][i] = (grid[j][i] % 4) + 
+								(grid[j-1][i] / 4) +
+								grid[j+1][i] / 4 +
+								grid[j][i-1] / 4 + 
+								grid[j][i+1] / 4;
+						if (grid[j][i]!=updateGrid[j][i]) {  
+							change=true;
+						}
+					}
+				}	
+				//System.out.println(hi-lo); 
+				return change;
+				
+			}
+			else{
+				
+					ParallelGrid left = new ParallelGrid(grod, uGrod, lo, (lo+hi)/2);
+					ParallelGrid right = new ParallelGrid(grod, uGrod, (lo+hi)/2, hi);
+
+					left.fork();
+					boolean rightAns = right.compute();
+					boolean leftAns = left.join();
+					//System.out.println((hi-lo));
+					return (rightAns || leftAns);
 				}
-		}} //end nested for
-	if (change) { nextTimeStep();}
-	return change;
+			
+
+
+		}
+
 	}
 	
 	
@@ -216,7 +171,7 @@ public class Grid extends RecursiveTask<Integer> {
 		System.out.printf("+");
 		for( j=1; j<columns-1; j++ ) System.out.printf("  --");
 		System.out.printf("+\n");
-		for( i=1; i<rows-1; i++ ) {
+		for( i=1; i<row-1; i++ ) {
 			System.out.printf("|");
 			for( j=1; j<columns-1; j++ ) {
 				if ( grid[i][j] > 0) 
@@ -234,14 +189,14 @@ public class Grid extends RecursiveTask<Integer> {
 	//write grid out as an image
 	void gridToImage(String fileName) throws IOException {
         BufferedImage dstImage =
-                new BufferedImage(rows, columns, BufferedImage.TYPE_INT_ARGB);
+                new BufferedImage(row, columns, BufferedImage.TYPE_INT_ARGB);
         //integer values from 0 to 255.
         int a=0;
         int g=0;//green
         int b=0;//blue
         int r=0;//red
 
-		for( int i=0; i<rows; i++ ) {
+		for( int i=0; i<row; i++ ) {
 			for( int j=0; j<columns; j++ ) {
 			     g=0;//green
 			     b=0;//blue

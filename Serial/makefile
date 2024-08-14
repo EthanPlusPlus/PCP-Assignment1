@@ -35,3 +35,19 @@ clean:
 
 run: all
 	java -classpath bin $(MAIN_CLASS) $(ARGS)
+
+
+run16: all
+	java -classpath bin $(MAIN_CLASS) input/16_by_16_all_4.csv output/16_by_16_all_4.png
+
+run65: all
+	java -classpath bin $(MAIN_CLASS) 65_by_65_all_4.csv output/65_by_65_all_4.png
+
+run8: all
+	java -classpath bin $(MAIN_CLASS) input/8_by_8_all_4.csv output/8_by_8_all_4.png
+
+run517: all
+	java -classpath bin $(MAIN_CLASS) input/517_by_517_centre_534578.csv output/517_by_517_centre_534578.png
+
+run1001: all
+	java -classpath bin $(MAIN_CLASS) input/1001_by_1001_all_8.csv output/1001_by_1001_all_8.png
