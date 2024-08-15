@@ -18,8 +18,8 @@ public class Grid {
 
 	//added
 	static final ForkJoinPool fjPool = ForkJoinPool.commonPool();
-	static int CUTOFF = 0;
-	//added (also changed int[][] to Integer[][])
+	static int CUTOFF = 88;
+	//added 
     
 	public Grid(int w, int h) {
 		row = w+2; //for the "sink" border
@@ -139,23 +139,19 @@ public class Grid {
 						}
 					}
 				}	
-				//System.out.println(hi-lo); 
 				return change;
 				
 			}
 			else{
 				
-					ParallelGrid left = new ParallelGrid(grod, uGrod, lo, (lo+hi)/2);
-					ParallelGrid right = new ParallelGrid(grod, uGrod, (lo+hi)/2, hi);
+				ParallelGrid left = new ParallelGrid(grod, uGrod, lo, (lo+hi)/2);
+				ParallelGrid right = new ParallelGrid(grod, uGrod, (lo+hi)/2, hi);
 
-					left.fork();
-					boolean rightAns = right.compute();
-					boolean leftAns = left.join();
-					//System.out.println((hi-lo));
-					return (rightAns || leftAns);
-				}
-			
-
+				left.fork();
+				boolean rightAns = right.compute();
+				boolean leftAns = left.join();
+				return (rightAns || leftAns);
+			}
 
 		}
 

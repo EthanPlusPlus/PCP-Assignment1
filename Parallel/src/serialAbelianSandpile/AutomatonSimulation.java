@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 /* Serial  program to simulate an Abelian Sandpile cellular automaton
- * This is the reference sequential version (Do not modify this code)
- * Michelle Kuttel 2024, University of Cape Town
- * Adapted from "Abelian Sandpile Simulation"
- * Peachy Parallel Assignments (EduPar 2022)" 
- * developed by Bu\:cker, Casanova and Da Silva  (∗Institute for Computer Science, Friedrich Schiller University Jena, Jena, Germany)
+  This is the reference sequential version (Do not modify this code)
+  Michelle Kuttel 2024, University of Cape Town
+  Adapted from "Abelian Sandpile Simulation"
+  Peachy Parallel Assignments (EduPar 2022)" 
+  developed by Bu\:cker, Casanova and Da Silva  (Institute for Computer Science, Friedrich Schiller University Jena, Jena, Germany)
  */
 
 class AutomatonSimulation{
@@ -60,15 +60,21 @@ class AutomatonSimulation{
 
     	Grid simulationGrid;  //the cellular automaton grid
     	  	
-    	if (args.length!=3) {   //input is the name of the input and output files
-    		System.out.println("Incorrect number of command line arguments provided.");   	
+		String inputFileName = args[0];  //input file name
+		String outputFileName=args[1]; // output file name
+		int cutoffArg = 88;
+    	if (args.length==2) {   //input is the name of the input and output files
+			inputFileName = args[0];  //input file name
+			outputFileName=args[1]; // output file name
+    	} else if (args.length==3){
+			inputFileName = args[0];  //input file name
+			outputFileName=args[1]; // output file name
+			cutoffArg=Integer.parseInt(args[2]);
+		} else {
+			System.out.println("Incorrect number of command line arguments provided.");   	
 			System.out.println(args.length);
     		System.exit(0);
-    	}
-    	/* Read argument values */
-  		String inputFileName = args[0];  //input file name
-		String outputFileName=args[1]; // output file name
-		int cutoffArg=Integer.parseInt(args[2]);
+		}
     
     	// Read from input .csv file
     	simulationGrid = new Grid(readArrayFromCSV(inputFileName));
@@ -88,7 +94,7 @@ class AutomatonSimulation{
     	}
 
 		
-		
+		System.out.println("This is parallel...");
 		while(simulationGrid.abelian()) {//run until no change
 			simulationGrid.nextTimeStep();
 			if(DEBUG) simulationGrid.printGrid();

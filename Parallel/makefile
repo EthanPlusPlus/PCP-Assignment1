@@ -40,7 +40,7 @@ run16: all
 	java -classpath bin $(MAIN_CLASS) input/16_by_16_all_4.csv output/16_by_16_all_4.png 2
 
 run65: all
-	java -classpath bin $(MAIN_CLASS) 65_by_65_all_4.csv output/65_by_65_all_4.png 8
+	java -classpath bin $(MAIN_CLASS) input/65_by_65_all_4.csv output/65_by_65_all_4.png 8
 
 run8: all
 	java -classpath bin $(MAIN_CLASS) input/8_by_8_all_4.csv output/8_by_8_all_4.png 1

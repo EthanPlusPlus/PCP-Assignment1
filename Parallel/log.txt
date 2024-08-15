@@ -1,0 +1,47 @@
+commit 94c98d1b7da3fb095304b9190e33fde0b86c0183
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Wed Aug 14 15:39:02 2024 +0200
+
+    Makefile upgrade; use make run8/16/65/517/1001
+
+commit 23b299a1686a10028a6f513ec1e67c0a8a818046
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Mon Aug 12 19:58:52 2024 +0200
+
+    Cleaner code; needs comments
+
+commit 75b2168034fe96d0c70be6d6873e9cf2ccf005a5
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Mon Aug 12 19:23:44 2024 +0200
+
+    Small fix
+
+commit fd3225ceffec824c35e4073a6dbee7938b400b67
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Mon Aug 12 12:13:15 2024 +0200
+
+    Normal approach working; Cutoff must be tweeked
+
+commit 08ce8868b28746d3612aeebb341bd6540aa64752
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Fri Aug 9 13:48:14 2024 +0200
+
+    Scrapping splitting by rows and recurse columns; deleting and implementing simple split rows keep columns
+
+commit 5da740bbea56f93d87839afec693e39f62190971
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Mon Aug 5 13:36:29 2024 +0200
+
+    Created Coord (inate) class; Planning to flatten 2D array
+
+commit d9bf2119a7704628ab720c511728ae68e2424078
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Mon Jul 29 18:02:14 2024 +0200
+
+    Serial and Parallel versions created
+
+commit 40f8dd82a6f6b859a9e06ebac53c60bc24be5d88
+Author: EthanPlusPlus <ethann.pillayy@gmail.com>
+Date:   Mon Jul 29 16:12:10 2024 +0200
+
+    Initial commit

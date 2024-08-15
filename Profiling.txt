@@ -3,159 +3,190 @@
 // TODO
 	1001x1001 serial time and picture
 
-Serial Profiling
+MY LAPTOP {
 
-16_by_16_one_100
-Avg: 1ms (19 steps)
+	Serial Profiling
 
-16_by_16_all_4
-Avg: 2ms (67)
+	8
+	Avg: 0.2ms 19
 
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 1 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 1 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 0 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 0 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 0 ms
+	16_by_16_one_100
+	Avg: 1ms (19 steps)
 
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1156 
-Time: 48 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1156 
-Time: 48 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1156 
-Time: 49 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1156 
-Time: 31 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1156 
-Time: 31 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1156 
-Time: 31 ms
+	16_by_16_all_4
+	Avg: 2ms (67)
 
-Rows: 517, Columns: 517 [centre 53421]
-Simulation complete, writing image...
-Number of steps to stable state: 98904 
-Time: 129826 ms
-Rows: 517, Columns: 517
-Simulation complete, writing image...
-Number of steps to stable state: 98904 
-Time: 133334 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 1 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 1 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 0 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 0 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 0 ms
 
-Rows: 517, Columns: 517 [all 4]
-Simulation complete, writing image...
-Number of steps to stable state: 71316 
-Time: 89480 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1156 
+	Time: 48 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1156 
+	Time: 48 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1156 
+	Time: 49 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1156 
+	Time: 31 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1156 
+	Time: 31 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1156 
+	Time: 31 ms
 
-Parallel Profiling
+	Rows: 517, Columns: 517 [centre 53421]
+	Simulation complete, writing image...
+	Number of steps to stable state: 98904 
+	Time: 129826 ms
+	Rows: 517, Columns: 517
+	Simulation complete, writing image...
+	Number of steps to stable state: 98904 
+	Time: 133334 ms
 
-SQ = 1
-8x8 [all 4]
-Avg = 3ms (19 steps)
+	Rows: 517, Columns: 517 [all 4]
+	Simulation complete, writing image...
+	Number of steps to stable state: 71316 
+	Time: 89480 ms
 
-SQ = 2
-Rows: 16, Columns: 16 [one 100]
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 3 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 3 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 2 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 2 ms
-Rows: 16, Columns: 16
-Simulation complete, writing image...
-Number of steps to stable state: 19 
-Time: 3 ms
+	Parallel Profiling
 
-SQ = 2
-16x16 [all 4]
-Avg = 7ms (67 steps)
+	SQ = 1
+	8x8 [all 4]
+	Avg = 3ms (19 steps)
 
-SQ = 8
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1158 
-Time: 67 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1158 
-Time: 64 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1158 
-Time: 65 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1158 
-Time: 64 ms
-Rows: 65, Columns: 65
-Simulation complete, writing image...
-Number of steps to stable state: 1158 
-Time: 66 ms
+	SQ = 2
+	Rows: 16, Columns: 16 [one 100]
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 3 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 3 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 2 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 2 ms
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 3 ms
 
-SQ = 60
-Rows: 517, Columns: 517
-Simulation complete, writing image...
-Number of steps to stable state: 98904 
-Time: 46726 ms
-Rows: 517, Columns: 517
-Simulation complete, writing image...
-Number of steps to stable state: 98904 
-Time: 66761 ms
-Rows: 517, Columns: 517
-Simulation complete, writing image...
-Number of steps to stable state: 98904 
-Time: 47360 ms
-Rows: 517, Columns: 517
-Simulation complete, writing image...
-Number of steps to stable state: 98904 
-Time: 47917 ms
-Rows: 517, Columns: 517
-Simulation complete, writing image...
-Number of steps to stable state: 98904 
-Time: 47217 ms
+	SQ = 2
+	16x16 [all 4]
+	Avg = 7ms (67 steps)
 
-SQ = 60
-Rows: 517, Columns: 517
-Simulation complete, writing image...
-Number of steps to stable state: 71316 
-Time: 63996 ms
+	SQ = 8
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1158 
+	Time: 67 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1158 
+	Time: 64 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1158 
+	Time: 65 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1158 
+	Time: 64 ms
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1158 
+	Time: 66 ms
 
-SQ = 125
-Rows: 1001, Columns: 1001
-Simulation complete, writing image...
-Number of steps to stable state: 471192 
-Time: 1906478 ms
+	SQ = 60
+	Rows: 517, Columns: 517
+	Simulation complete, writing image...
+	Number of steps to stable state: 98904 
+	Time: 46726 ms
+	Rows: 517, Columns: 517
+	Simulation complete, writing image...
+	Number of steps to stable state: 98904 
+	Time: 45761 ms
+	Rows: 517, Columns: 517
+	Simulation complete, writing image...
+	Number of steps to stable state: 98904 
+	Time: 47360 ms
+	Rows: 517, Columns: 517
+	Simulation complete, writing image...
+	Number of steps to stable state: 98904 
+	Time: 47917 ms
+	Rows: 517, Columns: 517
+	Simulation complete, writing image...
+	Number of steps to stable state: 98904 
+	Time: 47217 ms
+	AVG=496996ms
 
+	SQ = 60
+	Rows: 517, Columns: 517
+	Simulation complete, writing image...
+	Number of steps to stable state: 71316 
+	Time: 63996 ms
+
+	SQ = 125
+	Rows: 1001, Columns: 1001
+	Simulation complete, writing image...
+	Number of steps to stable state: 471192 
+	Time: 1906478 ms
+
+}
+
+NIGHTMARE {
+
+	SQ = 1
+	Rows: 8, Columns: 8
+	Simulation complete, writing image...
+	Number of steps to stable state: 19 
+	Time: 309 ms
+
+	SQ = 2
+	Rows: 16, Columns: 16
+	Simulation complete, writing image...
+	Number of steps to stable state: 67 
+	Time: 328 ms
+
+	SQ=8
+	Rows: 65, Columns: 65
+	Simulation complete, writing image...
+	Number of steps to stable state: 1158 
+	Time: 1530 ms
+
+	SQ = 60
+
+}
